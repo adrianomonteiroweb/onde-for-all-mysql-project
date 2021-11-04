@@ -1,24 +1,22 @@
-DROP DATABASE IF EXISTS spotifyclone;
+CREATE DATABASE IF NOT EXISTS SpotifyClone;
 
-CREATE DATABASE IF NOT EXISTS spotifyclone;
+USE SpotifyClone;
 
-USE spotifyclone;
-
-CREATE TABLE accounts (
-account_id INT PRIMARY KEY AUTO_INCREMENT,
-account VARCHAR(40) DEFAULT gratuito,
+CREATE TABLE account_plan (
+plan_id INT PRIMARY KEY AUTO_INCREMENT,
+plan VARCHAR(40) DEFAULT 'gratuito',
 price decimal(3, 2)
 );
 
-CREATE TABLE users (
+CREATE TABLE `user` (
 user_id INT PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(50),
 age INT,
-account_id INT NOT NULL,
-FOREIGN KEY (account_id) REFERENCES accounts(account_id)
+plan_id INT NOT NULL,
+FOREIGN KEY (plan_id) REFERENCES account_plan(plan_id)
 );
 
-CREATE TABLE artists (
+CREATE TABLE artist (
 artist_id INT PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(100)
 );
@@ -27,39 +25,46 @@ CREATE TABLE followers (
 user_id INT NOT NULL,
 artist_id INT NOT NULL,
 FOREIGN KEY (user_id) REFERENCES user(user_id),
-FOREIGN KEY (artist_id) REFERENCES artists(artist_id),
+FOREIGN KEY (artist_id) REFERENCES artist(artist_id),
 CONSTRAINT PRIMARY KEY (user_id, artist_id)
 );
 
-CREATE TABLE albums (
+CREATE TABLE album (
 album_id INT PRIMARY KEY AUTO_INCREMENT,
 title VARCHAR(100),
 artist_id INT NOT NULL,
-FOREIGN KEY (artist_id) REFERENCES artists(artist_id)
+FOREIGN KEY (artist_id) REFERENCES artist(artist_id)
 );
 
-CREATE TABLE songs (
+CREATE TABLE song (
 song_id INT PRIMARY KEY AUTO_INCREMENT,
 title VARCHAR(100),
 album_id INT NOT NULL,
-FOREIGN KEY (album_id) REFERENCES albums(album_id)
+FOREIGN KEY (album_id) REFERENCES album(album_id)
 );
 
-CREATE TABLE histories (
+CREATE TABLE `history` (
 user_id INT NOT NULL,
 song_id INT NOT NULL,
-FOREIGN KEY (user_id) REFERENCES users(user_id),
-FOREIGN KEY (song_id) REFERENCES songs(song_id),
+FOREIGN KEY (user_id) REFERENCES user(user_id),
+FOREIGN KEY (song_id) REFERENCES song(song_id),
 CONSTRAINT PRIMARY KEY (user_id, song_id)
 );
 
-INSERT INTO artists (`name`)
-VALUES ('Walter Phoenix'), ('Peter Strong'), ('Lance Day'), ('Freedie Shannon');
+INSERT INTO artist (`name`)
+VALUES
+('Walter Phoenix'),
+('Peter Strong'),
+('Lance Day'),
+('Freedie Shannon');
 
-INSERT INTO accounts (account, price)
-VALUES ('gratuito', 0), ('familiar', 7.99), ('universitário', 5.99);
+INSERT INTO account_plan (plan, price)
+VALUES
+('gratuito', 0),
+('familiar', 7.99),
+('universitário', 5.99);
        
-INSERT INTO albums (title, artist_id)
+INSERT INTO album (title, artist_id)
 VALUES
 ('Envious', 1),
 ('Exuberant', 1),
@@ -67,8 +72,12 @@ VALUES
 ('Incandescent', 3),
 ('Temporary Culture', 4);
        
-INSERT INTO users (`name`, age, account_id)
-VALUES ('Thati', 23, 1), ('Cintia', 35, 2), ('Bill', 20, 3), ('Roger', 45, 1);
+INSERT INTO user (`name`, age, plan_id)
+VALUES
+('Thati', 23, 1),
+('Cintia', 35, 2),
+('Bill', 20, 3),
+('Roger', 45, 1);
        
 INSERT INTO followers (user_id, artist_id)
 VALUES
@@ -81,7 +90,7 @@ VALUES
 (3, 1),
 (4, 4);
        
-INSERT INTO songs (title, album_id)
+INSERT INTO song (title, album_id)
 VALUES
 ('Soul For Us', 1),
 ('Reflections Of Magic', 1),
@@ -102,7 +111,7 @@ VALUES
 ('Words Of Her Life', 5),
 ('Without My Streets', 5);
        
-INSERT INTO histories (user_id, song_id)
+INSERT INTO `history` (user_id, song_id)
 VALUES
 (1, 1),
 (1, 6),
@@ -112,9 +121,9 @@ VALUES
 (2, 17),
 (2, 2),
 (2, 15),
-       (3, 4),
-       (3, 16),
-       (3, 6),
-       (4, 3),
-       (4, 18),
-       (4, 11);
+(3, 4),
+(3, 16),
+(3, 6),
+(4, 3),
+(4, 18),
+(4, 11);
