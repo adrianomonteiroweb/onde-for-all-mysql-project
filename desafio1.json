@@ -1,7 +1,7 @@
 {
     "coluna_usuario": "name",
     "tabela_que_contem_usuario": "users",
-    "coluna_plano": "plan",
+    "coluna_plano": "account",
     "tabela_que_contem_plano": "accounts",
     "coluna_historico_de_reproducoes": "song_id",
     "tabela_que_contem_historico_de_reproducoes": "histories",

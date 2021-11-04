@@ -10,7 +10,7 @@ account VARCHAR(40) DEFAULT gratuito,
 price decimal(3, 2)
 );
 
-CREATE TABLE 'users' (
+CREATE TABLE users (
 user_id INT PRIMARY KEY AUTO_INCREMENT,
 `name` VARCHAR(50),
 age INT,
@@ -45,7 +45,7 @@ album_id INT NOT NULL,
 FOREIGN KEY (album_id) REFERENCES albums(album_id)
 );
 
-CREATE TABLE 'histories' (
+CREATE TABLE histories (
 user_id INT NOT NULL,
 song_id INT NOT NULL,
 FOREIGN KEY (user_id) REFERENCES users(user_id),
@@ -112,9 +112,9 @@ VALUES
 (2, 17),
 (2, 2),
 (2, 15),
-(3, 4),
-(3, 16),
-(3, 6),
-(4, 3),
-(4, 18),
-(4, 11);
+       (3, 4),
+       (3, 16),
+       (3, 6),
+       (4, 3),
+       (4, 18),
+       (4, 11);
